@@ -20,7 +20,7 @@ public class Projects {
     public void createAProject(String projectName){
         mainPage.createNewProject(projectName);
         nameProj = projectName;
-        //mainPage.selectProject("rroororor");
+
 
 
 
@@ -29,15 +29,14 @@ public class Projects {
     @And("^the Start Date is \"(.*?)\"$")
     public void projectStarDate(String startDate){
          mainPage.setStartDate(startDate);
-        //mainPage.selectPrjDropDownButton("rroororor");
+
 
     }
 
     @And("^the End Date is \"(.*?)\"$")
     public void projectFinishDate(String finishDate){
         mainPage.setFinishDate(finishDate);
-        //mainPage.selectEditPrjButton("rroororor");
-       // mainPage.setFinishDate(finishDate);
+
     }
 
     @Then("^the \"(.*?)\" project should be displayed in project board$")
@@ -65,6 +64,11 @@ public class Projects {
     public void saveProject(String namePrj){
 
         mainPage.saveProjectButton(namePrj);
+    }
+
+    @After(value = "@Projects", order = 999)
+    public void deleteProject(){
+        mainPage.deletePrj(nameProj);
     }
 
 

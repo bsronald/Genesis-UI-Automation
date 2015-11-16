@@ -1,7 +1,7 @@
 @Login
 Feature: Login
     Allows to log on successfully and unsuccessfully
-  @smokeTest
+  @LogOut
   Scenario: Login to the page successfully
       Given I navigate to Login Page
       When I log in successfully as "ronaldbutron@gmail.com" with password "Control123"

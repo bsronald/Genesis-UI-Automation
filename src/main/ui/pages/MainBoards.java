@@ -4,9 +4,11 @@ import commons.DomainAppConstants;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import ui.BasePageObject;
@@ -178,5 +180,18 @@ public class MainBoards extends BasePageObject {
     public String taskDisplayed(String taskName) {
         WebElement taskDisp = driver.findElement(By.xpath("//span[@class='board-task-title' and contains(text(), '"+ taskName +"')]"));
         return taskDisp.getText();
+    }
+
+    public void dragAndDropTask(String taskName, String boardName) {
+
+        WebElement selectedTask = driver.findElement(By.xpath("//span[@class='board-task-title' and contains(text(), '"+ taskName +"')]"));
+        WebElement target = driver.findElement(By.xpath("//div[@class='board-header']/div/span[contains(text(), '"+ boardName+"')]/../../../ul"));
+        Actions builder= new Actions(driver);
+        Action dragAndDrop = builder.clickAndHold(selectedTask)
+                                    .moveToElement(target)
+                                    .release(target)
+                                    .build();
+        dragAndDrop.perform();
+
     }
 }

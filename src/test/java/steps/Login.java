@@ -48,7 +48,7 @@ public class Login {
          Assert.assertTrue(loginPage.userMessageError(), "User Login Failed");
     }
 
-    @After(value="@smokeTest", order = 999)
+    @After(value="@LogOut", order = 998)
     public void LogOut(){
         mainPage.logOut();
     }

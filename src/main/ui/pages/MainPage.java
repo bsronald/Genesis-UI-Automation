@@ -1,5 +1,6 @@
 package ui.pages;
 
+import commons.DomainAppMethods;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
@@ -137,9 +138,8 @@ public class MainPage extends BasePageObject{
     }
 
     public Boolean prjIsNotDisplayed(String  namePrj){
-       //Implementar try catch()
-        WebElement elementNotDisplayed = driver.findElement(By.xpath("//ul[@id='projects-list']/li/a[contains(text(), '"+ namePrj +"')]"));
-        return elementNotDisplayed.isDisplayed();
+        // Insert Waits ?????
+        return DomainAppMethods.isElementPresent(By.xpath("//ul[@id='projects-list']/li/a[contains(text(), '"+ namePrj +"')]"), driver);
     }
 
     //Edit Project
@@ -193,7 +193,7 @@ public class MainPage extends BasePageObject{
         // Editar @FIndBy Created
         WebElement newSprint = driver.findElement(By.xpath("//div[@id='sprints-add-link']/span"));
         driverWait.until(ExpectedConditions.visibilityOf(newSprint));
-
+        //driverWait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@id='sprints-add-link']/span")));
     }
 
     public void deletePrj(String nameProject){

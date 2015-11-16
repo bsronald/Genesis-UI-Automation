@@ -48,4 +48,13 @@ public class Tasks {
 
     }
 
+    @When("^I drag and drop the \"(.*?)\" task to \"(.*?)\" dashboard$")
+    public void dragAndDrop(String taskName, String boardName){
+
+        task.dragAndDropTask(taskName, boardName);
+
+    }
+
+
+
 }
