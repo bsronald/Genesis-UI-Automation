@@ -42,7 +42,7 @@ public class Projects {
     @Then("^the \"(.*?)\" project should be displayed in project board$")
     public void projectDisplayed(String nameProject){
 
-       Assert.assertTrue(mainPage.prjCreatedDisplayed(nameProject), "Project Displayed");
+       Assert.assertTrue(mainPage.prjCreatedIsDisplayed(nameProject), "Project Displayed");
 
     }
 

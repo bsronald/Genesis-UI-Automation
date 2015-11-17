@@ -25,12 +25,12 @@ public class Tasks {
     public void descriptionTask(String description, String taskName){
 
          task.clickOverTask(taskName);
-         task.setDescription(description);
+         task.setDescriptionTask(description);
     }
 
     @And("^I insert a comment \"(.*?)\" into the \"(.*?)\" task$")
     public void commentTask(String comment, String taskName){
-         task.setComment(comment);
+         task.setCommentTask(comment);
 
     }
 
