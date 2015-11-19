@@ -28,5 +28,5 @@ Feature: Projects
 
   Examples:
     | project name |
-    | Genesis2     |
+    | Genesis     |
 

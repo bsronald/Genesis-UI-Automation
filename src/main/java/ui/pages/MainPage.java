@@ -132,11 +132,9 @@ public class MainPage extends BasePageObject{
     public void saveProjectButton(String nameProject){
 
         savePrjButton.click();
-
         WebElement prj = driver.findElement(By.xpath("//ul[@id='projects-list']/li/a[contains(text(), '"+ nameProject +"')]"));
         driverWait.until(ExpectedConditions.visibilityOf(prj));
         driverWait.until(ExpectedConditions.visibilityOf(newSprintLink));
-
     }
 
     /**
@@ -157,6 +155,7 @@ public class MainPage extends BasePageObject{
      */
     public LoginPage logOut(){
 
+        driverWait.until(ExpectedConditions.elementToBeClickable(logOutPage));
         logOutPage.click();
         return new LoginPage();
     }
@@ -228,9 +227,6 @@ public class MainPage extends BasePageObject{
      */
     private void successfullyDeletePrj(String nameProject){
 
-        WebElement prj = driver.findElement(By.xpath("//ul[@id='projects-list']/li/a[contains(text(), '"+ nameProject +"')]"));
-        driverWait.until(ExpectedConditions.visibilityOf(prj));
-        driverWait.until(ExpectedConditions.visibilityOf(newSprintLink));
         selectPrjDropDownButton(nameProject);
         selectEditPrjButton(nameProject);
         selectArchiveProject();
@@ -246,7 +242,8 @@ public class MainPage extends BasePageObject{
         WebElement saveEdit = driver.findElement(By.xpath("//div[@class='ui-dialog-buttonset']/button"));
         driverWait.until(ExpectedConditions.elementToBeClickable(saveEdit));
         saveEdit.click();
-        driverWait.until(ExpectedConditions.visibilityOf(newSprintLink));
+        UIMethods.waitElementIsRemoved(By.xpath("//ul[@id='projects-list']/li/a[contains(text(), 'Genesis')]"));
+        //driverWait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//ul[@id='projects-list']/li/a[contains(text(), 'Genesis')]")));
 
     }
 

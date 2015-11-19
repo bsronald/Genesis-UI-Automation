@@ -30,6 +30,18 @@ public class LeftMenu extends BasePageObject{
     @CacheLookup
     WebElement membersButton;
 
+    @FindBy(xpath = "//div[@id='sprints-add-link']/span")
+    @CacheLookup
+    WebElement newSprintLink;
+
+    @FindBy(xpath = "//div[@id='release-add-link']/span")
+    @CacheLookup
+    WebElement newReleaseLink;
+
+    @FindBy(xpath = "//div[@id='member-add-link']/span")
+    @CacheLookup
+    WebElement newMemberLink;
+
 
     public LeftMenu(){
         PageFactory.initElements(driver, this);
@@ -38,25 +50,38 @@ public class LeftMenu extends BasePageObject{
 
     @Override
     public void waitUntilPageObjectIsLoaded() {
-       driverWait.until(ExpectedConditions.visibilityOf(sprintsButton));
+       driverWait.until(ExpectedConditions.visibilityOf(newSprintLink));
     }
 
+    /**
+     *
+     * @return
+     */
     public LeftSprintMenu selectSprintPage(){
 
         sprintsButton.click();
-        driverWait.until(ExpectedConditions.visibilityOf(sprintsButton));
         return new LeftSprintMenu();
     }
 
+    /**
+     *
+     * @return
+     */
     public LeftReleasesMenu selectReleasesPage(){
 
         releasesButton.click();
+        driverWait.until(ExpectedConditions.visibilityOf(newReleaseLink));
         return new LeftReleasesMenu();
     }
 
-    public  LeftMembersMenu selectMembersMenu(){
+    /**
+     *
+     * @return
+     */
+    public LeftMembersMenu selectMembersMenu(){
 
         membersButton.click();
+        driverWait.until(ExpectedConditions.visibilityOf(newMemberLink));
         return new LeftMembersMenu();
     }
 

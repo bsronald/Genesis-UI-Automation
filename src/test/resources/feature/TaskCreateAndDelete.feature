@@ -24,7 +24,7 @@ Feature: Manage Tasks
     | Write Scenarios	| Details the scenes	      | estimated time	      | Bugs                   	|
 
   @Projects
-  @LogOu
+  @LogOut
   Scenario Outline: Move a task to another board.
     Given I have a new task "<task name>" in the "<dashboard name>" dashboard
     When I drag and drop the "<task name>" task to "<target>" dashboard
@@ -33,3 +33,28 @@ Feature: Manage Tasks
   Examples:
     | task name	            | dashboard name           	| target	        |
     | Write Scenarios	    | Idea                   	| Bugs		        |
+
+  @Projects
+  @LogOut
+  Scenario: Create a Sprint
+    Given I have selected the "sprint" button
+    When I create a new sprint "Planning"
+      And the sprint start date is "11/18/2015"
+      And the sprint end date is "11/25/2015"
+      And the capacity in hours is "20"
+      And the sprint is saved
+    Then The sprint "Planning" should be displayed in the Left board
+
+  @Projects
+  @LogOut
+  Scenario: Add task to a sprint
+    Given I have selected the "sprint" button
+      And I create a new sprint "Planning"
+      And the sprint start date is "11/18/2015"
+      And the sprint end date is "11/25/2015"
+      And the capacity in hours is "20"
+      And the sprint is saved
+    When I have a new task "Test Plan" in the "Feature Backlog" dashboard
+      And I drag and drop the task "Test Plan" to the sprint "Planning"
+    Then the task "Test Plan" should be displayed inside the sprint "Planning" in the board "notstarted"
+
