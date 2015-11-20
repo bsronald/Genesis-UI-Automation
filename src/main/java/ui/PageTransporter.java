@@ -35,12 +35,18 @@ public class PageTransporter {
         driver.navigate().to(URL);
     }
     public String getCurrentURL(){
+
         return driver.getCurrentUrl();
+
     }
 
     public LoginPage toLoginPage(){
-          goToURL(URLLogin);
-          return new LoginPage();
+
+        goToURL(URLLogin);
+        return new LoginPage();
+
+
+
     }
 
 }

@@ -167,8 +167,7 @@ public class MainPage extends BasePageObject{
      */
     public Boolean prjCreatedIsDisplayed(String namePrj){
 
-        WebElement newPrj = driver.findElement(By.xpath("//ul[@id='projects-list']/li/a[contains(text(), '"+ namePrj +"')]"));
-        return  newPrj.isDisplayed();
+        return UIMethods.waitElementIsPresent(10, By.xpath("//ul[@id='projects-list']/li/a[contains(text(), '"+ namePrj +"')]"));
     }
 
     /**
@@ -177,8 +176,7 @@ public class MainPage extends BasePageObject{
      * @return
      */
     public Boolean prjIsNotDisplayed(String  namePrj){
-       // Insert Waits ?????
-       //return UIMethods.isElementPresent(By.xpath("//ul[@id='projects-list']/li/a[contains(text(), '" + namePrj + "')]"));
+
         return UIMethods.waitElementIsRemoved(By.xpath("//ul[@id='projects-list']/li/a[contains(text(), '" + namePrj + "')]"));
     }
 
@@ -242,8 +240,7 @@ public class MainPage extends BasePageObject{
         WebElement saveEdit = driver.findElement(By.xpath("//div[@class='ui-dialog-buttonset']/button"));
         driverWait.until(ExpectedConditions.elementToBeClickable(saveEdit));
         saveEdit.click();
-        UIMethods.waitElementIsRemoved(By.xpath("//ul[@id='projects-list']/li/a[contains(text(), 'Genesis')]"));
-        //driverWait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//ul[@id='projects-list']/li/a[contains(text(), 'Genesis')]")));
+        UIMethods.waitElementIsNotPresent(5, By.xpath("//ul[@id='projects-list']/li/a[contains(text(), 'Genesis')]"));
 
     }
 

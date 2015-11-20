@@ -1,5 +1,6 @@
 package ui.pages;
 
+import com.sun.xml.internal.bind.v2.TODO;
 import commons.DomainAppConstants;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -149,7 +150,6 @@ public class MainBoards extends BasePageObject {
          driverWait.until(ExpectedConditions.visibilityOf(archiveButton));
     }
 
-    //Methods add a description to a task
 
     /**
      *
@@ -248,7 +248,7 @@ public class MainBoards extends BasePageObject {
      * @return
      */
     public String taskDisplayed(String taskName) {
-        //Review
+       // TODO REVIEW ELEMENT TASK DISPLAYED
         WebElement taskDisp = driver.findElement(By.xpath("//span[@class='board-task-title' and contains(text(), '"+ taskName +"')]"));
         return taskDisp.getText();
     }

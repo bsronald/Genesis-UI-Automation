@@ -2,7 +2,7 @@
 Feature: Projects
   Background:
     Given I navigate to Login Page
-      And I log in successfully as "ronaldbutron@gmail.com" with password "Control123"
+    And I log in successfully as "ronaldbutron@gmail.com" with password "Control123"
 
   @Projects
   @LogOut

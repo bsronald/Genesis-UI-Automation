@@ -1,5 +1,6 @@
 package steps;
 
+import common.CommonMethods;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import cucumber.api.java.en.Then;
@@ -15,13 +16,13 @@ import org.testng.Assert;
  */
 public class Login {
 
-    public LoginPage loginPage;
+    public LoginPage loginPage = new LoginPage();
     public MainPage mainPage;
 
     @Given("^I navigate to Login Page$")
     public void navigateLoginPage(){
 
-        loginPage = PageTransporter.getInstance().toLoginPage();
+        PageTransporter.getInstance();
 
     }
 

@@ -128,12 +128,12 @@ public class LeftSprintMenu extends BasePageObject {
                                     .release(target)
                                     .build();
         dragAndDrop.perform();
-       // WebElement taskIsDisplayed = driver.findElement((By.xpath("//div[@class='dashboard-sprint-header']/div[contains(text(), 'Sprint')]/../following-sibling::div/div[contains(text(), '1 Tasks')]")));
-       // driverWait.until(ExpectedConditions.elementToBeClickable(taskIsDisplayed));
+
     }
 
     public Boolean isDisplayedTaskInSprint(String sprintName, String taskName, String taskBoard){
 
+        //TODO REVIEW WAIT ELEMENT
         WebElement sprint = driver.findElement(By.xpath("//div[@class='dashboard-sprint-header']/div[contains(text(), '"+ sprintName +"')]"));
         sprint.click();
        // WebElement board = driver.findElement(By.xpath("//th[contains(text(), '"+ taskBoard +"')]"));
