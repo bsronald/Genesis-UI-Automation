@@ -47,6 +47,10 @@ public class MainPage extends BasePageObject{
     @CacheLookup
     WebElement savePrjButton;
 
+    @FindBy(xpath = "//div[@class='ui-dialog-buttonset']/button")
+    @CacheLookup
+    WebElement saveEditButton;
+
     @FindBy(xpath = "//div[@id='sprints-add-link']/span")
     @CacheLookup
     WebElement newSprintLink;
@@ -132,7 +136,7 @@ public class MainPage extends BasePageObject{
     public void saveProjectButton(String nameProject){
 
         savePrjButton.click();
-        WebElement prj = driver.findElement(By.xpath("//ul[@id='projects-list']/li/a[contains(text(), '"+ nameProject +"')]"));
+        WebElement prj = driver.findElement(By.xpath(buildXpathForProject(nameProject)));
         driverWait.until(ExpectedConditions.visibilityOf(prj));
         driverWait.until(ExpectedConditions.visibilityOf(newSprintLink));
     }
@@ -167,7 +171,8 @@ public class MainPage extends BasePageObject{
      */
     public Boolean prjCreatedIsDisplayed(String namePrj){
 
-        return UIMethods.waitElementIsPresent(10, By.xpath("//ul[@id='projects-list']/li/a[contains(text(), '"+ namePrj +"')]"));
+        return UIMethods.waitElementIsPresent(10, By.xpath(buildXpathForProject(namePrj)));
+
     }
 
     /**
@@ -177,7 +182,7 @@ public class MainPage extends BasePageObject{
      */
     public Boolean prjIsNotDisplayed(String  namePrj){
 
-        return UIMethods.waitElementIsRemoved(By.xpath("//ul[@id='projects-list']/li/a[contains(text(), '" + namePrj + "')]"));
+        return UIMethods.waitElementIsRemoved(By.xpath(buildXpathForProject(namePrj)));
     }
 
     /**
@@ -197,7 +202,7 @@ public class MainPage extends BasePageObject{
      */
     public void selectProject(String namePrj){
 
-        WebElement selectPrj = driver.findElement(By.xpath("//ul[@id='projects-list']/li/a[contains(text(), '" + namePrj + "')]"));
+        WebElement selectPrj = driver.findElement(By.xpath(buildXpathForProject(namePrj)));
         selectPrj.click();
     }
 
@@ -207,7 +212,7 @@ public class MainPage extends BasePageObject{
      */
     public void selectEditPrjButton(String nameProject){
 
-        WebElement editPrj = driver.findElement(By.xpath("//ul[@id='projects-list']/li/a[contains(text(), '"+ nameProject +"')]/../div/div/ul/li/a[@class='project-settings-link']"));
+        WebElement editPrj = driver.findElement(By.xpath(buildXpathForProject(nameProject) + "/../div/div/ul/li/a[@class='project-settings-link']"));
         editPrj.click();
     }
 
@@ -228,20 +233,19 @@ public class MainPage extends BasePageObject{
         selectPrjDropDownButton(nameProject);
         selectEditPrjButton(nameProject);
         selectArchiveProject();
-        saveEditPrj();
+        saveEditPrj(nameProject);
 
     }
 
     /**
      *
      */
-    public void saveEditPrj(){
+    public void saveEditPrj(String nameProject){
 
-        WebElement saveEdit = driver.findElement(By.xpath("//div[@class='ui-dialog-buttonset']/button"));
-        driverWait.until(ExpectedConditions.elementToBeClickable(saveEdit));
-        saveEdit.click();
-        UIMethods.waitElementIsNotPresent(5, By.xpath("//ul[@id='projects-list']/li/a[contains(text(), 'Genesis')]"));
 
+        driverWait.until(ExpectedConditions.elementToBeClickable(saveEditButton));
+        saveEditButton.click();
+        UIMethods.waitElementIsNotPresent(10, By.xpath(buildXpathForProject(nameProject)));
     }
 
     /**
@@ -260,5 +264,10 @@ public class MainPage extends BasePageObject{
     public Boolean welcomeProjectIsDisplayed(){
 
         return  welcomeProjectLink.isDisplayed();
+    }
+
+    public String buildXpathForProject(String nameProject){
+
+        return  "//ul[@id='projects-list']/li/a[contains(text(), '" + nameProject + "')]";
     }
 }

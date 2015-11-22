@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 public class UIMethods {
 
     public static WebDriver driver =  DriverManager.getInstance().getWebDriver();
-    private static Logger log = Logger.getLogger("RunCukesTest");
+    private static Logger log = Logger.getLogger("UIMethods");
     public UIMethods(){
 
     }
@@ -54,6 +54,7 @@ public class UIMethods {
 
            log.error("Exception Found Element is not Present");
         }
+        System.out.print("++++++++++Element not Present Out of While++++++++++"+result);
         return result;
     }
 
@@ -67,6 +68,8 @@ public class UIMethods {
 
             count++;
         }
+
+        System.out.print("++++++++++Element Present Out of While++++++++++"+result);
 
         return result;
     }

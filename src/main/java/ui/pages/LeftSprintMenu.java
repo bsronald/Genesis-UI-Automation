@@ -104,13 +104,13 @@ public class LeftSprintMenu extends BasePageObject {
     public void saveNewSprint(){
 
         saveSprintButton.click();
-        WebElement newSprint = driver.findElement(By.xpath("//div[@class='dashboard-sprint-header']/div[contains(text(), '" + nameSprint + "')]"));
-        //driverWait.until(ExpectedConditions.visibilityOf(newSprint));
+
+
     }
 
     public Boolean sprintIsDisplayed(String sprintName){
 
-        return UIMethods.isElementPresent(By.xpath("//div[@class='dashboard-sprint-header']/div[contains(text(), '"+ sprintName +"')]"));
+       return UIMethods.isElementPresent(By.xpath(buildXpathSprintHeader(sprintName)));
     }
 
     public void selectSprint(String sprintName){
@@ -121,7 +121,7 @@ public class LeftSprintMenu extends BasePageObject {
     public void dragAndDropTask(String taskName, String sprintName) {
 
         WebElement selectedTask = driver.findElement(By.xpath("//span[@class='board-task-title' and contains(text(), '"+ taskName +"')]"));
-        WebElement target = driver.findElement(By.xpath("//div[@class='dashboard-sprint-header']/div[contains(text(), '"+ sprintName +"')]"));
+        WebElement target = driver.findElement(By.xpath(buildXpathSprintHeader(sprintName)));
         Actions builder= new Actions(driver);
         Action dragAndDrop = builder.clickAndHold(selectedTask)
                                     .moveToElement(target)
@@ -133,11 +133,14 @@ public class LeftSprintMenu extends BasePageObject {
 
     public Boolean isDisplayedTaskInSprint(String sprintName, String taskName, String taskBoard){
 
-        //TODO REVIEW WAIT ELEMENT
-        WebElement sprint = driver.findElement(By.xpath("//div[@class='dashboard-sprint-header']/div[contains(text(), '"+ sprintName +"')]"));
+
+        WebElement sprint = driver.findElement(By.xpath(buildXpathSprintHeader(sprintName)));
         sprint.click();
-       // WebElement board = driver.findElement(By.xpath("//th[contains(text(), '"+ taskBoard +"')]"));
-       // driverWait.until(ExpectedConditions.visibilityOf(board));
-       return  UIMethods.isElementPresent(By.xpath("//div[@class='sprint-task sprint-droppable "+ taskBoard +"']/div/div[@class='task-title' and contains(text(), '"+ taskName +"')]"));
+        return  UIMethods.isElementPresent(By.xpath("//div[@class='sprint-task sprint-droppable "+ taskBoard +"']/div/div[@class='task-title' and contains(text(), '"+ taskName +"')]"));
+    }
+
+    public String buildXpathSprintHeader(String sprintName){
+
+        return "//div[@class='dashboard-sprint-header']/div[contains(text(), '"+ sprintName +"')]";
     }
 }

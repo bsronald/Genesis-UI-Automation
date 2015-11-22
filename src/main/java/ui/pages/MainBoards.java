@@ -100,7 +100,7 @@ public class MainBoards extends BasePageObject {
      */
     public void selectAddTask(String nameBoard) {
 
-        WebElement taskName = driver.findElement(By.xpath("//div[@class='board-header']/div/span[contains(text(), '" + nameBoard + "')]/../../../div[@class='task-add-container']/span"));
+        WebElement taskName = driver.findElement(By.xpath(buildXpathForBoard(nameBoard) + "div[@class='task-add-container']/span"));
         taskName.click();
     }
 
@@ -111,9 +111,9 @@ public class MainBoards extends BasePageObject {
      */
     public void saveTask(String nameBoard, String nameTask){
 
-        WebElement taskName = driver.findElement(By.xpath("//div[@class='board-header']/div/span[contains(text(), '"+ nameBoard +"')]/../../../div[@class='task-add-container']/span/form/button[contains(text(),'Save')]"));
+        WebElement taskName = driver.findElement(By.xpath(buildXpathForBoard(nameBoard) + "div[@class='task-add-container']/span/form/button[contains(text(),'Save')]"));
         taskName.click();
-        WebElement task = driver.findElement(By.xpath("//span[@class='board-task-title' and contains(text(), '"+ nameTask +"')]"));
+        WebElement task = driver.findElement(By.xpath(buildXpathForTask(nameTask)));
         driverWait.until(ExpectedConditions.visibilityOf(task));
 
     }
@@ -125,7 +125,7 @@ public class MainBoards extends BasePageObject {
      */
     public void setName(String nameTask, String nameBoard){
 
-        WebElement taskName = driver.findElement(By.xpath("//div[@class='board-header']/div/span[contains(text(), '"+ nameBoard +"')]/../../../div[@class='task-add-container']/span/form/input"));
+        WebElement taskName = driver.findElement(By.xpath(buildXpathForBoard(nameBoard) + "div[@class='task-add-container']/span/form/input"));
         taskName.clear();
         taskName.sendKeys(nameTask);
     }
@@ -135,7 +135,8 @@ public class MainBoards extends BasePageObject {
      * @param nameBoard
      */
     public void taskNoSaved(String nameBoard){
-        WebElement taskName = driver.findElement(By.xpath("//div[@class='board-header']/div/span[contains(text(), '"+ nameBoard +"')]/../../../div[@class='task-add-container']/span/form/button[contains(text(),'Cancel')]"));
+
+        WebElement taskName = driver.findElement(By.xpath(buildXpathForBoard(nameBoard)+ "div[@class='task-add-container']/span/form/button[contains(text(),'Cancel')]"));
         taskName.click();
     }
 
@@ -145,7 +146,7 @@ public class MainBoards extends BasePageObject {
      */
     public void clickOverTask(String taskName){
 
-        WebElement clickTask = driver.findElement(By.xpath("//span[@class='board-task-title' and contains(text(), '"+ taskName +"')]"));
+         WebElement clickTask = driver.findElement(By.xpath(buildXpathForTask(taskName)));
          clickTask.click();
          driverWait.until(ExpectedConditions.visibilityOf(archiveButton));
     }
@@ -202,8 +203,6 @@ public class MainBoards extends BasePageObject {
         saveCommentTask();
     }
 
-    // Comment methods
-
     /**
      *
      */
@@ -233,7 +232,6 @@ public class MainBoards extends BasePageObject {
 
     }
 
-    //Close Window Edit task
     /**
      *
      */
@@ -248,8 +246,9 @@ public class MainBoards extends BasePageObject {
      * @return
      */
     public String taskDisplayed(String taskName) {
+
        // TODO REVIEW ELEMENT TASK DISPLAYED
-        WebElement taskDisp = driver.findElement(By.xpath("//span[@class='board-task-title' and contains(text(), '"+ taskName +"')]"));
+       WebElement taskDisp = driver.findElement(By.xpath(buildXpathForTask(taskName)));
         return taskDisp.getText();
     }
 
@@ -260,8 +259,8 @@ public class MainBoards extends BasePageObject {
      */
     public void dragAndDropTask(String taskName, String boardName) {
 
-        WebElement selectedTask = driver.findElement(By.xpath("//span[@class='board-task-title' and contains(text(), '"+ taskName +"')]"));
-        WebElement target = driver.findElement(By.xpath("//div[@class='board-header']/div/span[contains(text(), '"+ boardName+"')]/../../../ul"));
+        WebElement selectedTask = driver.findElement(By.xpath(buildXpathForTask(taskName)));
+        WebElement target = driver.findElement(By.xpath(buildXpathForBoard(boardName)+"ul"));
         Actions builder= new Actions(driver);
         Action dragAndDrop = builder.clickAndHold(selectedTask)
                                     .moveToElement(target)
@@ -269,5 +268,15 @@ public class MainBoards extends BasePageObject {
                                     .build();
         dragAndDrop.perform();
 
+    }
+
+    public String buildXpathForTask(String taskName){
+
+        return "//span[@class='board-task-title' and contains(text(), '"+ taskName +"')]";
+    }
+
+    public String buildXpathForBoard(String boardName){
+
+        return "//div[@class='board-header']/div/span[contains(text(), '"+ boardName +"')]/../../../";
     }
 }
