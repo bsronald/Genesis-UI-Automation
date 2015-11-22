@@ -27,6 +27,8 @@ public class RunCukesTest extends AbstractTestNGCucumberTests {
     @AfterTest
     public void afterExecution() {
         try {
+            log.info("Finishing test");
+            log.error("Prueba123");
             //CommonMethods.logOut();
         } catch (Exception e) {
             log.error("Unable to logout after execution", e);
@@ -39,6 +41,7 @@ public class RunCukesTest extends AbstractTestNGCucumberTests {
     public void beforeExecution(){
         try{
            CommonMethods.navigateLogIn();
+           log.info("Pre-Conditions");
         }catch (Exception e){
             log.error("Unable to navigate to the Login Page");
         }
