@@ -8,7 +8,7 @@ Feature: Manage Tasks
       And I have a Project "Genesis"
       And the Start Date is "11/14/2015"
       And the End Date is "11/25/2015"
-      And I save the "Genesis" project
+      And I save the project "Genesis"
 
   @Projects
   @LogOut

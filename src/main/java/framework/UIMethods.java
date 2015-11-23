@@ -65,7 +65,6 @@ public class UIMethods {
         while (!result && count <= MaxCount){
             System.out.print("++++++++++Present Element++++++++++"+result);
             result = isElementPresent(element);
-
             count++;
         }
 

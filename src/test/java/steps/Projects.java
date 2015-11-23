@@ -40,28 +40,28 @@ public class Projects {
 
     }
 
-    @Then("^the \"(.*?)\" project should be displayed in project board$")
+    @Then("^the project \"(.*?)\" should be displayed in project board$")
     public void projectDisplayed(String nameProject){
 
        Assert.assertTrue(mainPage.prjCreatedIsDisplayed(nameProject), "Project Displayed");
 
     }
 
-    @When("^I delete the \"(.*?)\" project$")
+    @When("^I delete the project \"(.*?)\"$")
     public void archivePrj(String namePrj){
 
         mainPage.deletePrj(namePrj);
 
     }
 
-    @Then("^the \"(.*?)\" project should not be displayed in the projects dashboard$")
+    @Then("^the project \"(.*?)\" should not be displayed in the projects dashboard$")
     public void projectIsNotDisplayed(String namePrj){
 
         Assert.assertFalse(mainPage.prjIsNotDisplayed(namePrj), "Project Deleted");
 
     }
 
-    @When("^I save the \"(.*?)\" project$")
+    @When("^I save the project \"(.*?)\"$")
     public void saveProject(String namePrj){
 
         mainPage.saveProjectButton(namePrj);
