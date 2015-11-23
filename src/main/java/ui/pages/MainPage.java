@@ -270,4 +270,13 @@ public class MainPage extends BasePageObject{
 
         return  "//ul[@id='projects-list']/li/a[contains(text(), '" + nameProject + "')]";
     }
+
+    public void createSuccessfullyProject(String nameProject, String startDate, String endDate){
+
+            clickNewProject();
+            setProjectName(nameProject);
+            setStartDate(startDate);
+            setFinishDate(endDate);
+            saveProjectButton(nameProject);
+    }
 }

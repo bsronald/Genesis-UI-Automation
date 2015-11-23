@@ -9,6 +9,8 @@ import cucumber.api.java.en.When;
 import ui.pages.MainPage;
 import org.testng.Assert;
 
+import java.util.Map;
+
 /**
  * User: RonaldButron
  * Date: 11/13/15
@@ -17,6 +19,8 @@ public class Projects {
 
     MainPage mainPage = new MainPage();
     String nameProj;
+    String startDate;
+    String endDate;
     @And("^I have a Project \"(.*?)\"$")
     public void createAProject(String projectName){
         mainPage.createNewProject(projectName);
@@ -67,8 +71,19 @@ public class Projects {
         mainPage.saveProjectButton(namePrj);
     }
 
-    @Given("^I have the following project:$")
-    public void createProject(DataTable table){
+
+    @Given("^I have the following Project$")
+    public void theFollowingProject(DataTable table){
+
+        for (Map <String, String> map : table.asMaps(String.class, String.class)){
+             nameProj = map.get("name");
+             startDate = map.get("start date");
+             endDate = map.get("end date");
+             System.out.print("Project name: " + nameProj + "\n" + "Start date: "  + startDate + "\n" + "End date: " + endDate );
+        }
+
+        mainPage.createSuccessfullyProject(nameProj, startDate, endDate);
+
 
     }
 

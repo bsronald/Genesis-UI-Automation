@@ -1,5 +1,6 @@
 package steps;
 
+import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -7,6 +8,8 @@ import cucumber.api.java.en.When;
 import org.testng.Assert;
 import ui.pages.LeftMenu;
 import ui.pages.LeftSprintMenu;
+
+import java.util.Map;
 
 /**
  * User: Ronald Butron
@@ -16,6 +19,10 @@ public class Sprints {
 
     LeftMenu leftMenu = new LeftMenu();
     LeftSprintMenu sprintMenu;
+    String sprintName;
+    String startDate;
+    String endDate;
+    String capacityHours;
 
     @Given("^I have selected the \"(.*?)\" button$")
     public void selectLeftToolBarButton(String buttonSelected){
@@ -69,6 +76,20 @@ public class Sprints {
     public void isDisplayedTheTaskInsideSprint(String taskName, String sprintName, String board ){
 
         Assert.assertTrue(sprintMenu.isDisplayedTaskInSprint(sprintName, taskName, board));
+    }
+
+    @Given("^I create the following Sprint$")
+    public void createFollowingSprint(DataTable table){
+
+        for (Map<String, String> map : table.asMaps(String.class, String.class)){
+            sprintName = map.get("sprint name");
+            startDate = map.get("start date");
+            endDate = map.get("end date");
+            capacityHours = map.get("capacity hours");
+        }
+
+        sprintMenu.createSuccessfullySprint(sprintName, startDate, endDate, capacityHours);
+
     }
 
 

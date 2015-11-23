@@ -5,10 +5,9 @@ Feature: Manage Tasks
   Background:
     Given  I navigate to Login Page
       And I log in successfully as "ronaldbutron@gmail.com" with password "Control123"
-      And I have a Project "Genesis"
-      And the Start Date is "11/14/2015"
-      And the End Date is "11/25/2015"
-      And I save the project "Genesis"
+      And I have the following Project
+      | name        | start date | end date   |
+      | Genesis     | 11/23/2015 | 11/30/2015 |
 
   @Projects
   @LogOut
@@ -38,23 +37,18 @@ Feature: Manage Tasks
   @LogOut
   Scenario: Create a Sprint
     Given I have selected the "sprint" button
-    When I create a new sprint "Planning"
-      And the sprint start date is "11/18/2015"
-      And the sprint end date is "11/25/2015"
-      And the capacity in hours is "20"
-      And the sprint is saved
+    When I create the following Sprint
+      | sprint name | start date | end date   | capacity hours  |
+      | Planning    | 11/30/2015 | 12/10/2015 | 30              |
     Then The sprint "Planning" should be displayed in the Left board
 
   @Projects
   @LogOut
   Scenario: Add task to a sprint
     Given I have selected the "sprint" button
-      And I create a new sprint "Planning"
-      And the sprint start date is "11/18/2015"
-      And the sprint end date is "11/25/2015"
-      And the capacity in hours is "20"
-      And the sprint is saved
+      And I create the following Sprint
+        | sprint name | start date | end date   | capacity hours  |
+        | Planning    | 11/30/2015 | 12/10/2015 | 30              |
     When I have a new task "Test Plan" in the "Feature Backlog" dashboard
       And I drag and drop the task "Test Plan" to the sprint "Planning"
     Then the task "Test Plan" should be displayed inside the sprint "Planning" in the board "notstarted"
-

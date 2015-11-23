@@ -143,4 +143,14 @@ public class LeftSprintMenu extends BasePageObject {
 
         return "//div[@class='dashboard-sprint-header']/div[contains(text(), '"+ sprintName +"')]";
     }
+
+    public void createSuccessfullySprint(String sprintName, String startDate, String endDate, String capacityHours){
+
+          createNewSprint(sprintName);
+          setCapacityInHours(capacityHours);
+          setStartDate(startDate);
+          setFinishDate(endDate);
+          saveNewSprint();
+
+    }
 }

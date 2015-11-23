@@ -1,5 +1,6 @@
 package steps;
 
+import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.And;
@@ -8,6 +9,8 @@ import cucumber.api.java.en.When;
 import ui.pages.MainBoards;
 import org.testng.Assert;
 
+import java.util.Map;
+
 /**
  * User: RonaldButron
  * Date: 11/14/15
@@ -15,6 +18,7 @@ import org.testng.Assert;
 public class Tasks {
 
     MainBoards task = new MainBoards();
+
 
     @Given("^I have a new task \"(.*?)\" in the \"(.*?)\" dashboard$")
     public void createTask(String nameTask, String nameBoard){
@@ -54,6 +58,8 @@ public class Tasks {
         task.dragAndDropTask(taskName, boardName);
 
     }
+
+
 
 
 
