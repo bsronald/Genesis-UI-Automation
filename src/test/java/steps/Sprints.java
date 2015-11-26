@@ -141,6 +141,65 @@ public class Sprints {
        Assert.assertTrue(sprintBoard.isHourSetDisplayed(hours, nameTask));
     }
 
+    @When("^the task has the following work flow using buttons$")
+    public void taskWorkFlow(DataTable table){
+
+        for (Map<String, String> map : table.asMaps(String.class, String.class)){
+
+            String taskOption = map.get("task option");
+            String taskName = map.get("task name");
+
+            String status="0";
+            if (taskOption.equalsIgnoreCase(DomainAppConstants.START_TASK)){
+                status = "1";
+            }
+            if (taskOption.equalsIgnoreCase(DomainAppConstants.DELIVER_TASK)){
+                status = "2";
+            }
+            if (taskOption.equalsIgnoreCase(DomainAppConstants.REJECT_TASK)){
+                status = "1";
+            }
+            if (taskOption.equalsIgnoreCase(DomainAppConstants.ACCEPT_TASK)){
+                status = "3";
+            }
+
+            sprintBoard.selectDropDownButton(taskName);
+            sprintBoard.selectOptionMenu(taskName, taskOption, status);
+        }
+    }
+
+    @Then("^the task \"(.*?)\" should be displayed in the board \"(.*?)\"$")
+    public void isDisplayedTheTask(String nameTask, String boardName ){
+
+        Assert.assertTrue(sprintBoard.isDisplayedTheTask(nameTask, boardName));
+
+    }
+
+    @When("^the task \"(.*?)\" has assigned to the member \"(.*?)\"$")
+    public void assignTaskToAMember(String nameTask, String nameMember){
+
+        sprintBoard.assignTaskToAMemeber(nameTask, nameMember);
+    }
+
+    @Then("^the task \"(.*?)\" should display the name \"(.*?)\" of the member$")
+    public void isDisplayedTheNameOfTheMember(String nameTask,String memberName){
+
+        Assert.assertTrue(sprintBoard.isMemberDisplayedInTheTask(nameTask, memberName));
+    }
+
+    @When("^the task has the following work flow using drag and drop$")
+    public void taskWorkFlowDragAndDrop(DataTable table){
+
+        for(Map<String, String> map : table.asMaps(String.class, String.class)){
+            String target = map.get("target");
+            String nameTask = map.get("task name");
+            String current = map.get("current");
+            sprintBoard.dragAndDropTask(nameTask, target, current);
+        }
+
+
+    }
+
 
 
 }

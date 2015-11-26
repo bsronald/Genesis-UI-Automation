@@ -68,13 +68,15 @@ public class Tasks {
     public void hasTheFollowingTask(DataTable table){
 
         for(Map<String, String> map : table.asMaps(String.class, String.class)){
+
             taskName = map.get("task name");
             boardName = map.get("board name");
             taskDescription = map.get("description");
             taskComment = map.get("comment");
+            task.createTheFollowingTask(taskName, boardName, taskDescription, taskComment);
         }
 
-        task.createTheFollowingTask(taskName, boardName, taskDescription, taskComment);
+
     }
 
 

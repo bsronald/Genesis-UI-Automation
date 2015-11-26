@@ -132,8 +132,8 @@ public class LeftSprintMenu extends BasePageObject {
                                     .release(target)
                                     .build();
         dragAndDrop.perform();
-        driverWait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//span[@class='board-task-title' and contains(text(), '"+ taskName +"')]")));
-
+       // driverWait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//span[@class='board-task-title' and contains(text(), '"+ taskName +"')]")));
+         UIMethods.waitElementIsNotPresent(5, By.xpath("//span[@class='board-task-title' and contains(text(), '"+ taskName +"')]"));
     }
 
     public Boolean isDisplayedTaskInSprint(String sprintName, String taskName, String taskBoard){

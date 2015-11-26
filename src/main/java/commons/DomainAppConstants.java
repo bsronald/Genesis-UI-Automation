@@ -16,4 +16,9 @@ public class DomainAppConstants {
     public static final String REJECT_TASK = "Reject...";
     public static final String ACCEPT_TASK = "Accept";
     public static final String ESTIMATED_HOURS = "Estimated hours";
+    public static final String NOT_STARTED_BOARD = "Not Started";
+    public static final String IN_PROGRESS_BOARD = "In Progress";
+    public static final String TESTING_BOARD = "Testing";
+    public static final String DONE_BOARD = "Done";
+
 }

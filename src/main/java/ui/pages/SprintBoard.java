@@ -1,8 +1,12 @@
 package ui.pages;
 
+import common.CommonMethods;
+import commons.DomainAppConstants;
 import framework.UIMethods;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -86,7 +90,7 @@ public class SprintBoard extends BasePageObject {
 
     public void setHoursNotStartedTask(String estimatedOrActualHours, String hours) {
 
-        //driverWait.until(ExpectedConditions.elementToBeClickable(closeEditTaskButton));
+
         WebElement setHoursTask = driver.findElement(By.xpath("//span[contains(text(), '"+ estimatedOrActualHours +"')]/following-sibling::span"));
         setHoursTask.click();
         hoursValueInput.clear();
@@ -103,9 +107,8 @@ public class SprintBoard extends BasePageObject {
     public void setHoursStartedTask(String estimatedOrActualHours, String hours) {
 
 
-        WebElement setHoursTask = driver.findElement(By.xpath("//span[contains(text(), '"+ estimatedOrActualHours +"')]/following-sibling::span"));
-        System.out.print("//span[contains(text(), '"+ estimatedOrActualHours +"')]/following-sibling::span");
-        setHoursTask.click();
+        WebElement setHoursTaskStarted = driver.findElement(By.xpath("//span[contains(text(), '"+ estimatedOrActualHours +"')]/following-sibling::span[@class='task-input-editable' and @field='actual-hours']"));
+        setHoursTaskStarted.click();
         hoursValueInput.clear();
         hoursValueInput.sendKeys(hours);
         saveHoursValueButton.click();
@@ -119,7 +122,85 @@ public class SprintBoard extends BasePageObject {
 
     public Boolean isHourSetDisplayed(String hours, String nameTask) {
 
-         return UIMethods.waitElementIsPresent(10, By.xpath("//div[@class='task-time']/span[contains(text(), '"+ hours +"')]/../../following-sibling::div/div[@class='task-title' and contains(text(), '"+ nameTask +"')]"));
+         return UIMethods.waitElementIsPresent(10, By.xpath("//div[@class='task-time']/span[contains(text(), '" + hours + "')]/../../following-sibling::div/div[@class='task-title' and contains(text(), '" + nameTask + "')]"));
 
+    }
+
+    public Boolean isDisplayedTheTask(String nameTask, String boardName) {
+
+        String statusBoard = boardStatus(boardName);
+        return UIMethods.waitElementIsPresent(10, By.xpath("//td[@class='sprint-task-content ui-sortable' and @status='"+ statusBoard +"']/div/div/div[contains(text(), '"+ nameTask +"')]"));
+    }
+
+    public void assignTaskToAMemeber(String taskName, String memberName) {
+
+        clickIconMember(taskName);
+        selectMemberName(memberName, taskName);
+    }
+
+    private void selectMemberName(String memberName, String taskName) {
+
+        WebElement selectMember = driver.findElement(By.xpath("//div[@class='task-title' and contains(text(), '" + taskName + "')]/../preceding-sibling::div[@class='sprint-task-header']/div/ul/li/a[contains(text(), '" + memberName + "')]"));
+        driverWait.until(ExpectedConditions.elementToBeClickable(selectMember));
+        selectMember.click();
+    }
+
+    private void clickIconMember(String nameTask) {
+
+        WebElement memberIcon = driver.findElement(By.xpath("//div[@class='task-title' and contains(text(), '" + nameTask + "')]/../preceding-sibling::div[@class='sprint-task-header']/div/span/span[@class='icon-user']"));
+        memberIcon.click();
+    }
+
+    public Boolean isMemberDisplayedInTheTask(String taskName, String memberName){
+
+          return UIMethods.waitElementIsPresent(10, By.xpath("//div[@class='task-title' and contains(text(), '" + taskName + "')]/../preceding-sibling::div[@class='sprint-task-header']/div/span/span[contains(text(), '" + memberName + "')]"));
+    }
+
+    public void dragAndDropTask(String nameTask, String target, String current) {
+
+        String currentBoard = boardStatus(current);
+        String status = boardStatus(target);
+        WebElement selectedTask = driver.findElement(By.xpath("//td[@class='sprint-task-content ui-sortable' and @status='"+ currentBoard +"']/div/div/div[@class='task-title' and contains(text(), '"+ nameTask +"')]"));
+        WebElement boardTarget = driver.findElement(By.xpath("//td[@class='sprint-task-content ui-sortable' and @status='"+ status +"']"));
+        Actions builder= new Actions(driver);
+        Action dragAndDrop = builder.clickAndHold(selectedTask)
+                                    .moveToElement(boardTarget)
+                                    .release(boardTarget)
+                                    .build();
+        dragAndDrop.perform();
+       // WebElement taskBoardDisplayed = driver.findElement(By.xpath("//td[@class='sprint-task-content ui-sortable' and @status='"+ status +"']/div/div/div[@class='task-title' and contains(text(), '"+ nameTask +"')]"));
+        if (!target.equalsIgnoreCase(DomainAppConstants.DONE_BOARD)){
+            System.out.print("------target: "+target);
+            System.out.print("------current: "+current);
+            UIMethods.waitElementIsNotPresent(5, By.xpath("//td[@class='sprint-task-content ui-sortable' and @status='"+ currentBoard +"']/div/div/div[contains(text(), '"+ nameTask +"')]"));
+        }
+
+
+    }
+
+    public String boardStatus(String boardName){
+
+        String boardStatus = null;
+        if (boardName.equalsIgnoreCase(DomainAppConstants.NOT_STARTED_BOARD)){
+
+            boardStatus = "0";
+        }
+
+        if (boardName.equalsIgnoreCase(DomainAppConstants.IN_PROGRESS_BOARD)){
+
+            boardStatus = "1";
+        }
+
+        if (boardName.equalsIgnoreCase(DomainAppConstants.TESTING_BOARD)){
+
+            boardStatus = "2";
+        }
+
+        if (boardName.equalsIgnoreCase(DomainAppConstants.DONE_BOARD)){
+
+            boardStatus = "3";
+        }
+
+        return boardStatus;
     }
 }
