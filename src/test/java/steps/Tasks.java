@@ -8,6 +8,7 @@ import cucumber.api.java.After;
 import cucumber.api.java.en.When;
 import ui.pages.MainBoards;
 import org.testng.Assert;
+import ui.pages.MainPages;
 
 import java.util.Map;
 
@@ -16,13 +17,17 @@ import java.util.Map;
  * Date: 11/14/15
  */
 public class Tasks {
-
-    MainBoards task = new MainBoards();
-
+    MainPages newMainPage = new MainPages();
+    MainBoards task = newMainPage.getMainBoards();
+    String taskName;
+    String boardName;
+    String taskDescription;
+    String taskComment;
 
     @Given("^I have a new task \"(.*?)\" in the \"(.*?)\" dashboard$")
     public void createTask(String nameTask, String nameBoard){
-          task.createTask(nameTask, nameBoard);
+
+        task.createTask(nameTask, nameBoard);
     }
 
     @And("^I insert a description \"(.*?)\" into the \"(.*?)\" task$")
@@ -58,6 +63,23 @@ public class Tasks {
         task.dragAndDropTask(taskName, boardName);
 
     }
+
+    @Given("^I have the following task$")
+    public void hasTheFollowingTask(DataTable table){
+
+        for(Map<String, String> map : table.asMaps(String.class, String.class)){
+            taskName = map.get("task name");
+            boardName = map.get("board name");
+            taskDescription = map.get("description");
+            taskComment = map.get("comment");
+        }
+
+        task.createTheFollowingTask(taskName, boardName, taskDescription, taskComment);
+    }
+
+
+
+
 
 
 

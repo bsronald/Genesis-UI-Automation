@@ -113,14 +113,16 @@ public class LeftSprintMenu extends BasePageObject {
        return UIMethods.isElementPresent(By.xpath(buildXpathSprintHeader(sprintName)));
     }
 
-    public void selectSprint(String sprintName){
+    public SprintBoard selectSprint(String sprintName){
 
         WebElement sprint = driver.findElement(By.xpath(buildXpathSprintHeader(sprintName)));
         sprint.click();
+
+        return new SprintBoard();
     }
 
 
-    public void dragAndDropTask(String taskName, String sprintName) {
+    public void dragAndDropTask(String taskName, String sprintName){
 
         WebElement selectedTask = driver.findElement(By.xpath("//span[@class='board-task-title' and contains(text(), '"+ taskName +"')]"));
         WebElement target = driver.findElement(By.xpath(buildXpathSprintHeader(sprintName)));
@@ -130,12 +132,13 @@ public class LeftSprintMenu extends BasePageObject {
                                     .release(target)
                                     .build();
         dragAndDrop.perform();
+        driverWait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//span[@class='board-task-title' and contains(text(), '"+ taskName +"')]")));
 
     }
 
     public Boolean isDisplayedTaskInSprint(String sprintName, String taskName, String taskBoard){
 
-        selectSprint(sprintName);
+
         return  UIMethods.waitElementIsPresent(10, By.xpath("//div[@class='sprint-task sprint-droppable "+ taskBoard +"']/div/div[@class='task-title' and contains(text(), '"+ taskName +"')]"));
     }
 

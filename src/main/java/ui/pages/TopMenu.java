@@ -13,7 +13,7 @@ import ui.BasePageObject;
  * User: RonaldButron
  * Date: 11/11/15
  */
-public class MainPage extends BasePageObject{
+public class TopMenu extends BasePageObject{
 
     @FindBy(id = "project-add-link")
     @CacheLookup
@@ -64,7 +64,7 @@ public class MainPage extends BasePageObject{
       driverWait.until(ExpectedConditions.visibilityOf(ideaBoardDisplayed));
     }
 
-    public MainPage(){
+    public TopMenu(){
        PageFactory.initElements(driver, this);
        waitUntilPageObjectIsLoaded();
     }
@@ -73,8 +73,8 @@ public class MainPage extends BasePageObject{
      *
      * @return
      */
-
-    public MainPage clickNewProject(){
+    //TODO .....NOT USING THIS METHOD DELETE
+    public TopMenu clickNewProject(){
 
         newProjectLink.click();
         return this;
@@ -85,8 +85,8 @@ public class MainPage extends BasePageObject{
      * @param projectName
      * @return
      */
-    public MainPage createNewProject(String projectName){
-
+    public TopMenu createNewProject(String projectName){
+        //TODO if something happen problem Main Page
         return successfullyProjectCreated(projectName);
     }
 
@@ -95,6 +95,7 @@ public class MainPage extends BasePageObject{
      * @param projectName
      */
     public void newProject(String projectName){
+
         clickNewProject();
         driverWait.until(ExpectedConditions.visibilityOf(savePrjButton));
         setProjectName(projectName);
@@ -146,7 +147,7 @@ public class MainPage extends BasePageObject{
      * @param projectName
      * @return
      */
-    private MainPage successfullyProjectCreated(String projectName) {
+    private TopMenu successfullyProjectCreated(String projectName) {
 
         newProject(projectName);
 

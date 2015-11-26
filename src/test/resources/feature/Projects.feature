@@ -1,11 +1,9 @@
 @Project
 Feature: Projects
   Background:
-    Given I navigate to Login Page
-    And I log in successfully as "ronaldbutron@gmail.com" with password "Control123"
+    Given I log in successfully as "ronaldbutron@gmail.com" with password "Control123"
 
   @Projects
-  @LogOut
   Scenario Outline: Create Project
     Given I have a Project "<project name>"
       And the Start Date is "11/14/2015"
@@ -17,7 +15,7 @@ Feature: Projects
     | project name |
     | Genesis      |
 
-  @LogOut
+
   Scenario Outline: Delete a Project
     Given I have a Project "<project name>"
     And the Start Date is "11/14/2015"

@@ -10,7 +10,6 @@ Feature: Manage Tasks
       | Genesis     | 11/23/2015 | 11/30/2015 |
 
   @Projects
-  @LogOut
   Scenario Outline: Create New Task
     Given I have a new task "<task name>" in the "<dashboard name>" dashboard
       And I insert a description "<description>" into the "<task name>" task
@@ -23,7 +22,6 @@ Feature: Manage Tasks
     | Write Scenarios	| Details the scenes	      | estimated time	      | Bugs                   	|
 
   @Projects
-  @LogOut
   Scenario Outline: Move a task to another board.
     Given I have a new task "<task name>" in the "<dashboard name>" dashboard
     When I drag and drop the "<task name>" task to "<target>" dashboard
@@ -34,7 +32,6 @@ Feature: Manage Tasks
     | Write Scenarios	    | Idea                   	| Bugs		        |
 
   @Projects
-  @LogOut
   Scenario: Create a Sprint
     Given I have selected the "sprint" button
     When I create the following Sprint
@@ -43,7 +40,6 @@ Feature: Manage Tasks
     Then The sprint "Planning" should be displayed in the Left board
 
   @Projects
-  @LogOut
   Scenario: Add task to a sprint
     Given I have selected the "sprint" button
       And I create the following Sprint
@@ -51,4 +47,5 @@ Feature: Manage Tasks
         | Planning    | 11/30/2015 | 12/10/2015 | 30              |
     When I have a new task "Test Plan" in the "Feature Backlog" dashboard
       And I drag and drop the task "Test Plan" to the sprint "Planning"
+      And I select the sprint "Planning"
     Then the task "Test Plan" should be displayed inside the sprint "Planning" in the board "notstarted"

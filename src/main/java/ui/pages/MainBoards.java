@@ -1,9 +1,6 @@
 package ui.pages;
 
-import com.sun.xml.internal.bind.v2.TODO;
-import commons.DomainAppConstants;
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.support.CacheLookup;
@@ -11,9 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import ui.BasePageObject;
-import ui.pages.MainPage;
 
 /**
  * User: RonaldButron
@@ -56,6 +51,8 @@ public class MainBoards extends BasePageObject {
     @FindBy(xpath = "//button[@class='close' and contains(text(), x)]")
     @CacheLookup
     WebElement closeEditTaskButton;
+
+
 
     @Override
     public void waitUntilPageObjectIsLoaded() {
@@ -279,4 +276,17 @@ public class MainBoards extends BasePageObject {
 
         return "//div[@class='board-header']/div/span[contains(text(), '"+ boardName +"')]/../../../";
     }
+
+    public void createTheFollowingTask(String taskName, String boardName, String taskDescription, String taskComment){
+
+        selectAddTask(boardName);
+        setName(taskName, boardName);
+        saveTask(boardName, taskName);
+        clickOverTask(taskName);
+        setDescriptionTask(taskDescription);
+        setCommentTask(taskComment);
+        closeEditTask();
+    }
+
+
 }

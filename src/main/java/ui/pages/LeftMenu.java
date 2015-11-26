@@ -13,11 +13,6 @@ import ui.BasePageObject;
  */
 public class LeftMenu extends BasePageObject{
 
-    LeftSprintMenu sprintsMenu = new LeftSprintMenu();
-    LeftMembersMenu membersMenu = new LeftMembersMenu();
-    LeftReleasesMenu releasesMenu = new LeftReleasesMenu();
-
-
     @FindBy(xpath = "//button[@type='button' and @content-type='sprints']")
     @CacheLookup
     WebElement sprintsButton;
