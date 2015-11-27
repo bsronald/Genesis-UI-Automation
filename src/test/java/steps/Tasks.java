@@ -50,17 +50,16 @@ public class Tasks {
 
     }
 
-    @Then("^The \"(.*?)\" task should be displayed$")
-    public void taskDisplayed(String taskName){
+    @Then("^the task \"(.*?)\" should be displayed in the dashboard \"(.*?)\" of the main board$")
+    public void taskDisplayed(String taskName, String dashBoard){
 
-       Assert.assertEquals(task.taskDisplayed(taskName), taskName, "The object is displayed" );
-
+        Assert.assertTrue(task.isTaskDisplayedInBoard(taskName, dashBoard), "Task is Displayed in the "+ dashBoard + "dashboard");
     }
 
-    @When("^I drag and drop the \"(.*?)\" task to \"(.*?)\" dashboard$")
-    public void dragAndDrop(String taskName, String boardName){
+    @When("^I drag and drop the task \"(.*?)\" from \"(.*?)\" dashboard to \"(.*?)\" dashboard$")
+    public void dragAndDrop(String taskName, String boardNameCurrent, String boardNameTarget){
 
-        task.dragAndDropTask(taskName, boardName);
+        task.dragAndDropTask(taskName, boardNameCurrent, boardNameTarget);
 
     }
 

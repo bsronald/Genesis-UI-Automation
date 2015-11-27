@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import ui.pages.LoginPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
+import utils.ConfigFileReader;
 
 /**
   * User: RonaldButron
@@ -13,7 +14,8 @@ import org.openqa.selenium.TimeoutException;
 public class PageTransporter {
 
     private WebDriver driver = DriverManager.getInstance().getWebDriver();
-    private String URLLogin = "https://genesis-planner.com/login";
+    private ConfigFileReader reader = new ConfigFileReader();
+    private  String URLLogin = reader.getPropertiesValues("URLLogin");
     private static PageTransporter instance;
 
     protected PageTransporter(){

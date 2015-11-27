@@ -32,10 +32,11 @@ public class Sprints {
         sprintMenu = leftMenu.selectSprintPage();
     }
 
-    @When("^I create a new sprint \"(.*?)\"$")
-    public void createNewSprint(String sprintName){
+    @When("^I create the following sprint \"(.*?)\", \"(.*?)\", \"(.*?)\", \"(.*?)\"$")
+    public void createNewSprint(String sprintName, String capacityHours, String startDate, String endDate){
 
-        sprintMenu.createNewSprint(sprintName);
+        sprintMenu = leftMenu.selectSprintPage();
+        sprintMenu.createSuccessfullySprint(sprintName, startDate, endDate, capacityHours);
     }
 
     @Then("^The sprint \"(.*?)\" should be displayed in the Left board$")
@@ -100,25 +101,11 @@ public class Sprints {
        sprintBoard= sprintMenu.selectSprint(sprintName);
     }
 
-    @When("^I \"(.*?)\" the task \"(.*?)\"$")
-    public void selectOptionMenu(String taskOption, String taskName){
+    @When("^I select the option \"(.*?)\" of task \"(.*?)\" from the \"(.*?)\" board$")
+    public void selectOptionMenu(String taskOption, String taskName, String currentBoard){
 
-        String status="0";
-        if (taskOption.equalsIgnoreCase(DomainAppConstants.START_TASK)){
-            status = "1";
-        }
-        if (taskOption.equalsIgnoreCase(DomainAppConstants.DELIVER_TASK)){
-            status = "2";
-        }
-        if (taskOption.equalsIgnoreCase(DomainAppConstants.REJECT_TASK)){
-            status = "1";
-        }
-        if (taskOption.equalsIgnoreCase(DomainAppConstants.ACCEPT_TASK)){
-            status = "3";
-        }
-
-        sprintBoard.selectDropDownButton(taskName);
-        sprintBoard.selectOptionMenu(taskName, taskOption, status);
+        sprintBoard.selectDropDownButton(taskName, currentBoard);
+        sprintBoard.selectOptionMenu(taskName, taskOption);
 
     }
 
@@ -148,23 +135,10 @@ public class Sprints {
 
             String taskOption = map.get("task option");
             String taskName = map.get("task name");
+            String currentBoard = map.get("current board");
 
-            String status="0";
-            if (taskOption.equalsIgnoreCase(DomainAppConstants.START_TASK)){
-                status = "1";
-            }
-            if (taskOption.equalsIgnoreCase(DomainAppConstants.DELIVER_TASK)){
-                status = "2";
-            }
-            if (taskOption.equalsIgnoreCase(DomainAppConstants.REJECT_TASK)){
-                status = "1";
-            }
-            if (taskOption.equalsIgnoreCase(DomainAppConstants.ACCEPT_TASK)){
-                status = "3";
-            }
-
-            sprintBoard.selectDropDownButton(taskName);
-            sprintBoard.selectOptionMenu(taskName, taskOption, status);
+            sprintBoard.selectDropDownButton(taskName, currentBoard);
+            sprintBoard.selectOptionMenu(taskName, taskOption);
         }
     }
 
@@ -181,7 +155,7 @@ public class Sprints {
         sprintBoard.assignTaskToAMemeber(nameTask, nameMember);
     }
 
-    @Then("^the task \"(.*?)\" should display the name \"(.*?)\" of the member$")
+    @Then("^the task \"(.*?)\" should display the name of the member \"(.*?)\" in the task$")
     public void isDisplayedTheNameOfTheMember(String nameTask,String memberName){
 
         Assert.assertTrue(sprintBoard.isMemberDisplayedInTheTask(nameTask, memberName));
@@ -197,6 +171,16 @@ public class Sprints {
             sprintBoard.dragAndDropTask(nameTask, target, current);
         }
 
+
+    }
+
+    @Given("^I move the task \"(.*?)\" to the board \"(.*?)\"$")
+    public void taskDragAndDrop(String nameTask, String boardTarget){
+
+        if (!boardTarget.equalsIgnoreCase(DomainAppConstants.NOT_STARTED_BOARD)){
+            String current = DomainAppConstants.NOT_STARTED_BOARD;
+            sprintBoard.dragAndDropTask(nameTask, boardTarget, current);
+        }
 
     }
 

@@ -28,7 +28,7 @@ import ui.PageTransporter;
 
 public class RunCukesTest extends AbstractTestNGCucumberTests {
 
-    //WebDriver driver = DriverManager.getInstance().getWebDriver();
+
     private static Logger log = Logger.getLogger("RunCukesTest");
 
     @AfterTest

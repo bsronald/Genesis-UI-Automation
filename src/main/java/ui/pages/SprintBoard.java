@@ -60,19 +60,19 @@ public class SprintBoard extends BasePageObject {
         return  UIMethods.waitElementIsPresent(10, By.xpath("//div[@class='sprint-task sprint-droppable " + taskBoard + "']/div/div[@class='task-title' and contains(text(), '" + taskName + "')]"));
     }
 
-    public void selectDropDownButton(String taskName) {
+    public void selectDropDownButton(String taskName, String boarName) {
 
-        WebElement selectbutton = driver.findElement(By.xpath("//div[@class='task-title' and contains(text(), '"+ taskName +"')]/../following-sibling::div/div[@class='dropdown']/div"));
-        //driverWait.until(ExpectedConditions.visibilityOf(selectbutton));
+        String status = boardStatus(boarName);
+        WebElement selectbutton = driver.findElement(By.xpath("//td[@class='sprint-task-content ui-sortable' and @status='" + status + "']/div/div/div[@class='task-title' and contains(text(), '" + taskName + "')]/../following-sibling::div/div[@class='dropdown']/div"));
         selectbutton.click();
 
 
 
     }
 
-    public void selectOptionMenu(String taskName, String taskOption, String status){
+    public void selectOptionMenu(String taskName, String taskOption){
 
-
+        String status = boardStatusAction(taskOption);
         WebElement selectOptionMenu = driver.findElement(By.xpath("//div[@class='dropdown open']/ul/li/a[contains(text(), '"+ taskOption +"')]"));
         driverWait.until(ExpectedConditions.elementToBeClickable(selectOptionMenu));
         selectOptionMenu.click();
@@ -92,6 +92,7 @@ public class SprintBoard extends BasePageObject {
 
 
         WebElement setHoursTask = driver.findElement(By.xpath("//span[contains(text(), '"+ estimatedOrActualHours +"')]/following-sibling::span"));
+        CommonMethods.elementHighlight(setHoursTask);
         setHoursTask.click();
         hoursValueInput.clear();
         hoursValueInput.sendKeys(hours);
@@ -106,17 +107,13 @@ public class SprintBoard extends BasePageObject {
 
     public void setHoursStartedTask(String estimatedOrActualHours, String hours) {
 
-
-        WebElement setHoursTaskStarted = driver.findElement(By.xpath("//span[contains(text(), '"+ estimatedOrActualHours +"')]/following-sibling::span[@class='task-input-editable' and @field='actual-hours']"));
+        WebElement setHoursTaskStarted = driver.findElement(By.xpath("//span[contains(text(), '" + estimatedOrActualHours + "')]/following-sibling::span[@class='task-input-editable' and @field='actual-hours']"));
+        CommonMethods.elementHighlight(setHoursTaskStarted);
         setHoursTaskStarted.click();
         hoursValueInput.clear();
         hoursValueInput.sendKeys(hours);
         saveHoursValueButton.click();
         closeEditTaskButton.click();
-
-
-
-
     }
 
 
@@ -168,14 +165,9 @@ public class SprintBoard extends BasePageObject {
                                     .release(boardTarget)
                                     .build();
         dragAndDrop.perform();
-       // WebElement taskBoardDisplayed = driver.findElement(By.xpath("//td[@class='sprint-task-content ui-sortable' and @status='"+ status +"']/div/div/div[@class='task-title' and contains(text(), '"+ nameTask +"')]"));
         if (!target.equalsIgnoreCase(DomainAppConstants.DONE_BOARD)){
-            System.out.print("------target: "+target);
-            System.out.print("------current: "+current);
             UIMethods.waitElementIsNotPresent(5, By.xpath("//td[@class='sprint-task-content ui-sortable' and @status='"+ currentBoard +"']/div/div/div[contains(text(), '"+ nameTask +"')]"));
         }
-
-
     }
 
     public String boardStatus(String boardName){
@@ -203,4 +195,23 @@ public class SprintBoard extends BasePageObject {
 
         return boardStatus;
     }
+
+    public String boardStatusAction(String taskOption){
+
+        String status="0";
+        if (taskOption.equalsIgnoreCase(DomainAppConstants.START_TASK)){
+            status = "1";
+        }
+        if (taskOption.equalsIgnoreCase(DomainAppConstants.DELIVER_TASK)){
+            status = "2";
+        }
+        if (taskOption.equalsIgnoreCase(DomainAppConstants.REJECT_TASK)){
+            status = "1";
+        }
+        if (taskOption.equalsIgnoreCase(DomainAppConstants.ACCEPT_TASK)){
+            status = "3";
+        }
+        return status;
+    }
+
 }

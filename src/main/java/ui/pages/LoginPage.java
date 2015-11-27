@@ -2,6 +2,7 @@ package ui.pages;
 
 
 import commons.DomainAppConstants;
+import framework.UIMethods;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
@@ -146,8 +147,6 @@ public class LoginPage extends BasePageObject{
 
     public Boolean userMessageError(){
 
-        WebElement loginError = driver.findElement(By.xpath("//form[contains(text(),'" + DomainAppConstants.INVALID_USER_ERROR + "')]"));
-
-        return loginError.isDisplayed();
+        return UIMethods.waitElementIsPresent(5, By.xpath("//form[contains(text(),'" + DomainAppConstants.INVALID_USER_ERROR + "')]"));
     }
 }

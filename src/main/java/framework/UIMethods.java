@@ -27,24 +27,12 @@ public class UIMethods {
           }
      }
 
-    public static boolean waitElementIsRemoved(By element){
-        Boolean elementFind;
-
-        do{
-           elementFind = isElementPresent(element);
-        }while (elementFind);
-
-
-      return elementFind;
-    }
-
     public static boolean waitElementIsNotPresent(int MaxCount, By element){
         boolean result = true;
         int count = 1;
         try {
             while (result && count <= MaxCount){
                 Thread.sleep(50);
-                System.out.print("++++++++++Element not Present++++++++++"+result);
                 result = isElementPresent(element);
                 count++;
 
@@ -54,7 +42,6 @@ public class UIMethods {
 
            log.error("Exception Found Element is not Present");
         }
-        System.out.print("++++++++++Element not Present Out of While++++++++++"+result);
         return result;
     }
 
@@ -63,12 +50,9 @@ public class UIMethods {
         boolean result = false;
         int count = 1;
         while (!result && count <= MaxCount){
-            System.out.print("++++++++++Present Element++++++++++"+result);
             result = isElementPresent(element);
             count++;
         }
-
-        System.out.print("++++++++++Element Present Out of While++++++++++"+result);
 
         return result;
     }

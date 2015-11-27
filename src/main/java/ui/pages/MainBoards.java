@@ -1,5 +1,6 @@
 package ui.pages;
 
+import framework.UIMethods;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
@@ -242,22 +243,20 @@ public class MainBoards extends BasePageObject {
      * @param taskName
      * @return
      */
-    public String taskDisplayed(String taskName) {
+    public Boolean isTaskDisplayedInBoard(String taskName, String dashBoard) {
 
-       // TODO REVIEW ELEMENT TASK DISPLAYED
-       WebElement taskDisp = driver.findElement(By.xpath(buildXpathForTask(taskName)));
-        return taskDisp.getText();
+       return UIMethods.waitElementIsPresent(10, By.xpath("//span[@class='board-title-editable' and contains(text(), '"+ dashBoard +"')]/../../following-sibling::ul/li/span[@class='board-task-title' and contains(text(), '" + taskName + "')]"));
     }
 
     /**
      *
      * @param taskName
-     * @param boardName
+     * @param boardNameTarget
      */
-    public void dragAndDropTask(String taskName, String boardName) {
+    public void dragAndDropTask(String taskName, String boardNameCurrent, String boardNameTarget) {
 
-        WebElement selectedTask = driver.findElement(By.xpath(buildXpathForTask(taskName)));
-        WebElement target = driver.findElement(By.xpath(buildXpathForBoard(boardName)+"ul"));
+        WebElement selectedTask = driver.findElement(By.xpath("//span[@class='board-title-editable' and contains(text(), '"+ boardNameCurrent +"')]/../../following-sibling::ul/li/span[@class='board-task-title' and contains(text(), '" + taskName + "')]"));
+        WebElement target = driver.findElement(By.xpath(buildXpathForBoard(boardNameTarget)+"ul"));
         Actions builder= new Actions(driver);
         Action dragAndDrop = builder.clickAndHold(selectedTask)
                                     .moveToElement(target)

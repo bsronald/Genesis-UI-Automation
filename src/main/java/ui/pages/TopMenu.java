@@ -73,7 +73,6 @@ public class TopMenu extends BasePageObject{
      *
      * @return
      */
-    //TODO .....NOT USING THIS METHOD DELETE
     public TopMenu clickNewProject(){
 
         newProjectLink.click();
@@ -86,7 +85,7 @@ public class TopMenu extends BasePageObject{
      * @return
      */
     public TopMenu createNewProject(String projectName){
-        //TODO if something happen problem Main Page
+
         return successfullyProjectCreated(projectName);
     }
 
@@ -183,7 +182,7 @@ public class TopMenu extends BasePageObject{
      */
     public Boolean prjIsNotDisplayed(String  namePrj){
 
-        return UIMethods.waitElementIsRemoved(By.xpath(buildXpathForProject(namePrj)));
+        return UIMethods.waitElementIsNotPresent(5, By.xpath(buildXpathForProject(namePrj)));
     }
 
     /**
@@ -242,7 +241,6 @@ public class TopMenu extends BasePageObject{
      *
      */
     public void saveEditPrj(String nameProject){
-
 
         driverWait.until(ExpectedConditions.elementToBeClickable(saveEditButton));
         saveEditButton.click();
