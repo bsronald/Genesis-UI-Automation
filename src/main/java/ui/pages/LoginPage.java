@@ -2,15 +2,14 @@ package ui.pages;
 
 
 import commons.DomainAppConstants;
+import framework.UIMethods;
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import ui.BasePageObject;
-import ui.pages.MainPage;
 
 
 /**
@@ -18,6 +17,9 @@ import ui.pages.MainPage;
  * Date: 11/11/15
  */
 public class LoginPage extends BasePageObject{
+
+
+
     @FindBy(id = "id_email")
     @CacheLookup
     WebElement userNameInput;
@@ -33,6 +35,8 @@ public class LoginPage extends BasePageObject{
 
     @Override
     public void waitUntilPageObjectIsLoaded() {
+
+        System.out.print("Waiting for submit button\n");
         driverWait.until(ExpectedConditions.visibilityOf(submitButton));
     }
 
@@ -108,18 +112,22 @@ public class LoginPage extends BasePageObject{
      * @return
      */
 
-    public MainPage LoginSuccesfully(String userName, String userPassword){
-        login(userName, userPassword);
-        return  loginPageSuccessfully();
+    public MainPages LoginSuccessfully(String userName, String userPassword){
+
+        return  loginPageSuccessfully(userName, userPassword);
     }
 
     /**
      *
      * @return
      */
-    public MainPage loginPageSuccessfully(){
+    public MainPages loginPageSuccessfully(String userName, String userPassword){
+
+        login(userName, userPassword);
         submitButton.click();
-        return new MainPage();
+        return  new MainPages();
+
+
     }
 
     /**
@@ -139,8 +147,6 @@ public class LoginPage extends BasePageObject{
 
     public Boolean userMessageError(){
 
-        WebElement loginError = driver.findElement(By.xpath("//form[contains(text(),'" + DomainAppConstants.INVALID_USER_ERROR + "')]"));
-
-        return loginError.isDisplayed();
+        return UIMethods.waitElementIsPresent(5, By.xpath("//form[contains(text(),'" + DomainAppConstants.INVALID_USER_ERROR + "')]"));
     }
 }

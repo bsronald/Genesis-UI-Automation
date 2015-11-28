@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 public class UIMethods {
 
     public static WebDriver driver =  DriverManager.getInstance().getWebDriver();
-    private static Logger log = Logger.getLogger("RunCukesTest");
+    private static Logger log = Logger.getLogger("UIMethods");
     public UIMethods(){
 
     }
@@ -27,24 +27,12 @@ public class UIMethods {
           }
      }
 
-    public static boolean waitElementIsRemoved(By element){
-        Boolean elementFind;
-
-        do{
-           elementFind = isElementPresent(element);
-        }while (elementFind);
-
-
-      return elementFind;
-    }
-
     public static boolean waitElementIsNotPresent(int MaxCount, By element){
         boolean result = true;
         int count = 1;
         try {
             while (result && count <= MaxCount){
                 Thread.sleep(50);
-                System.out.print("++++++++++Element not Present++++++++++"+result);
                 result = isElementPresent(element);
                 count++;
 
@@ -62,9 +50,7 @@ public class UIMethods {
         boolean result = false;
         int count = 1;
         while (!result && count <= MaxCount){
-            System.out.print("++++++++++Present Element++++++++++"+result);
             result = isElementPresent(element);
-
             count++;
         }
 
