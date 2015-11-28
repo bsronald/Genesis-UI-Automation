@@ -32,7 +32,7 @@ Feature: Manage Tasks in the main board of the project
     | task name	                  | dashboard name       | target	      |
     | Write Scenarios	          | Idea                 | Bugs           |
     | Planning tasks              | Feature Backlog      | Idea           |
-    | Element Y is not displayed  | Bug                  | Feature Backlog|
+    | Element Y is not displayed  | Bugs                 | Feature Backlog|
 
   @Projects
   Scenario Outline: Create a Sprint

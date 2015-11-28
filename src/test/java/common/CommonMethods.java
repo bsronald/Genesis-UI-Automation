@@ -19,6 +19,9 @@ public class CommonMethods {
 
     private static WebDriver driver = DriverManager.getInstance().getWebDriver();
 
+    /**
+     * This method verify if is in the main page then Log out
+     */
     public static void logOut(){
 
         if (!isItInTheLoginPage()){
@@ -29,11 +32,18 @@ public class CommonMethods {
 
     }
 
+    /**
+     * navigate to the Login Page
+     */
     public static void navigateLogIn(){
 
        PageTransporter.getInstance().toLoginPage();
     }
 
+    /**
+     * Verify if is in the Login Page
+     * @return true is in the Login Page
+     */
     public static Boolean isItInTheLoginPage(){
 
         ConfigFileReader reader = new ConfigFileReader();
@@ -41,6 +51,10 @@ public class CommonMethods {
         return driver.getCurrentUrl().equalsIgnoreCase(URLLogin);
     }
 
+    /**
+     * High light elements
+     * @param element element to high light
+     */
     public static void elementHighlight(WebElement element) {
 
         WebDriver driver = DriverManager.getInstance().getWebDriver();

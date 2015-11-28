@@ -1,5 +1,7 @@
 package utils;
 
+import org.apache.log4j.Logger;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,13 +16,17 @@ import java.util.Properties;
 public class ConfigFileReader {
 
     private String  returnValue = null;
-
+    Logger log = Logger.getLogger("ConfigFileReader");
     public ConfigFileReader(){
 
     }
 
+    /**
+     * This method read values from a config file
+     * @param value value
+     * @return a string with the value
+     */
     public String getPropertiesValues(String value) {
-
 
         Properties prop = new Properties();
         InputStream input = null;
@@ -30,9 +36,9 @@ public class ConfigFileReader {
             input = new FileInputStream("src/main/resources/config.properties");
             prop.load(input);
             returnValue = prop.getProperty(value);
-            System.out.print(returnValue);
 
         } catch (IOException ex) {
+            log.error("Error to open file" + ex);
             ex.printStackTrace();
         } finally {
             if (input != null) {
@@ -40,7 +46,8 @@ public class ConfigFileReader {
                     input.close();
 
                 } catch (IOException e) {
-                    e.printStackTrace();
+
+                    log.error("Not able to close read file" + e);
                 }
             }
         }

@@ -70,8 +70,8 @@ public class TopMenu extends BasePageObject{
     }
 
     /**
-     *
-     * @return
+     *  This method click over new Project link
+     * @return the same page
      */
     public TopMenu clickNewProject(){
 
@@ -80,9 +80,9 @@ public class TopMenu extends BasePageObject{
     }
 
     /**
-     *
-     * @param projectName
-     * @return
+     *  This method create a new Project
+     * @param projectName project name
+     * @return the same page
      */
     public TopMenu createNewProject(String projectName){
 
@@ -90,8 +90,8 @@ public class TopMenu extends BasePageObject{
     }
 
     /**
-     *
-     * @param projectName
+     * this method create a new project set the name
+     * @param projectName project name
      */
     public void newProject(String projectName){
 
@@ -102,8 +102,8 @@ public class TopMenu extends BasePageObject{
     }
 
     /**
-     *
-     * @param projectName
+     * This method set the name of the project
+     * @param projectName project name
      */
     public void setProjectName(String projectName) {
         insertPrjName.clear();
@@ -111,8 +111,8 @@ public class TopMenu extends BasePageObject{
     }
 
     /**
-     *
-     * @param finishDate
+     * This method set the end date of the project
+     * @param finishDate finish date
      */
     public void setFinishDate(String finishDate) {
         insertEndDatePrj.clear();
@@ -120,8 +120,8 @@ public class TopMenu extends BasePageObject{
     }
 
     /**
-     *
-     * @param startDate
+     * This method set the start date of the project
+     * @param startDate start date
      */
     public void setStartDate(String startDate) {
 
@@ -130,8 +130,8 @@ public class TopMenu extends BasePageObject{
     }
 
     /**
-     *
-     * @param nameProject
+     * This method click over the save project button
+     * @param nameProject name project
      */
     public void saveProjectButton(String nameProject){
 
@@ -142,9 +142,9 @@ public class TopMenu extends BasePageObject{
     }
 
     /**
-     *
-     * @param projectName
-     * @return
+     *  This method create a project successfully
+     * @param projectName project name
+     * @return the same page
      */
     private TopMenu successfullyProjectCreated(String projectName) {
 
@@ -154,8 +154,8 @@ public class TopMenu extends BasePageObject{
     }
 
     /**
-     *
-     * @return
+     * This method log out of the web page
+     * @return Login page
      */
     public LoginPage logOut(){
 
@@ -165,9 +165,9 @@ public class TopMenu extends BasePageObject{
     }
 
     /**
-     *
-     * @param namePrj
-     * @return
+     * Verify if the project created is displayed
+     * @param namePrj project name
+     * @return true if the project is present and false if not
      */
     public Boolean prjCreatedIsDisplayed(String namePrj){
 
@@ -176,9 +176,9 @@ public class TopMenu extends BasePageObject{
     }
 
     /**
-     *
-     * @param namePrj
-     * @return
+     * This method verify if the project is not displayed
+     * @param namePrj name project
+     * @return return false
      */
     public Boolean prjIsNotDisplayed(String  namePrj){
 
@@ -186,8 +186,8 @@ public class TopMenu extends BasePageObject{
     }
 
     /**
-     *
-     * @param namePrj
+     * click over the project drop down button
+     * @param namePrj name project
      */
     public void selectPrjDropDownButton(String namePrj){
 
@@ -197,8 +197,8 @@ public class TopMenu extends BasePageObject{
     }
 
     /**
-     *
-     * @param namePrj
+     * Click over a specific project
+     * @param namePrj name project
      */
     public void selectProject(String namePrj){
 
@@ -207,7 +207,7 @@ public class TopMenu extends BasePageObject{
     }
 
     /**
-     *
+     * click over a option of the drop down menu
      * @param nameProject
      */
     public void selectEditPrjButton(String nameProject){
@@ -217,7 +217,7 @@ public class TopMenu extends BasePageObject{
     }
 
     /**
-     *
+     * click over the archive checkbox
      */
     public void selectArchiveProject(){
 
@@ -225,7 +225,7 @@ public class TopMenu extends BasePageObject{
     }
 
     /**
-     *
+     *  Delete a project successfully
      * @param nameProject
      */
     private void successfullyDeletePrj(String nameProject){
@@ -238,7 +238,7 @@ public class TopMenu extends BasePageObject{
     }
 
     /**
-     *
+     * Click over the save edited project button
      */
     public void saveEditPrj(String nameProject){
 
@@ -248,7 +248,7 @@ public class TopMenu extends BasePageObject{
     }
 
     /**
-     *
+     *  Delete project method
      * @param nameProject
      */
     public void deletePrj(String nameProject){
@@ -257,7 +257,7 @@ public class TopMenu extends BasePageObject{
     }
 
     /**
-     *
+     * verify welcome project displayed
      * @return
      */
     public Boolean welcomeProjectIsDisplayed(){
@@ -265,11 +265,22 @@ public class TopMenu extends BasePageObject{
         return  welcomeProjectLink.isDisplayed();
     }
 
+    /**
+     * Build the a string path for a projects
+     * @param nameProject name project
+     * @return a string of the path builded
+     */
     public String buildXpathForProject(String nameProject){
 
         return  "//ul[@id='projects-list']/li/a[contains(text(), '" + nameProject + "')]";
     }
 
+    /**
+     * Create successfully a project
+     * @param nameProject name project
+     * @param startDate star date
+     * @param endDate end date
+     */
     public void createSuccessfullyProject(String nameProject, String startDate, String endDate){
 
             clickNewProject();
