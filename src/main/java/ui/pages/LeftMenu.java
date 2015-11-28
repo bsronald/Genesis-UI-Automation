@@ -49,8 +49,8 @@ public class LeftMenu extends BasePageObject{
     }
 
     /**
-     *
-     * @return
+     * This method select the button Sprint
+     * @return a new page sprint
      */
     public LeftSprintMenu selectSprintPage(){
 
@@ -59,8 +59,8 @@ public class LeftMenu extends BasePageObject{
     }
 
     /**
-     *
-     * @return
+     * This method select the button Release
+     * @return a new page Release
      */
     public LeftReleasesMenu selectReleasesPage(){
 
@@ -70,8 +70,8 @@ public class LeftMenu extends BasePageObject{
     }
 
     /**
-     *
-     * @return
+     * This method select the button Members
+     * @return a new page Members
      */
     public LeftMembersMenu selectMembersMenu(){
 
