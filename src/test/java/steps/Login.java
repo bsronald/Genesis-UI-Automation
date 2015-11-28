@@ -22,7 +22,7 @@ public class Login {
     @Given("^I navigate to Login Page$")
     public void navigateLoginPage(){
 
-        PageTransporter.getInstance();
+        PageTransporter.getInstance().toLoginPage();
 
     }
 
