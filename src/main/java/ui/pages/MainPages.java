@@ -32,18 +32,29 @@ public class MainPages extends BasePageObject {
         waitUntilPageObjectIsLoaded();
     }
 
-
+    /**
+     * This method return a Top Menu page
+     * @return a new page top Menu
+     */
 
    public TopMenu getTopMenu(){
 
         return topMenu;
     }
 
+    /**
+     * This method return a Main Boar page
+     * @return a new Main Boar Menu
+     */
     public MainBoards getMainBoards(){
 
         return mainBoards;
     }
 
+    /**
+     * This method return a Left Menu page
+     * @return a new page Left Menu
+     */
     public LeftMenu leftMenu(){
 
         return leftMenu;

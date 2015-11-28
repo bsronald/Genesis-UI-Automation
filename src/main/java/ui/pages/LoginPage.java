@@ -40,17 +40,14 @@ public class LoginPage extends BasePageObject{
         driverWait.until(ExpectedConditions.visibilityOf(submitButton));
     }
 
-    /**
-     *
-     */
     public LoginPage(){
         PageFactory.initElements(driver, this);
         waitUntilPageObjectIsLoaded();
     }
 
     /**
-     *
-     * @param userName
+     * This method insert the user name
+     * @param userName user name to set
      * @return the same page
      */
 
@@ -61,8 +58,8 @@ public class LoginPage extends BasePageObject{
     }
 
     /**
-     *
-     * @param userPassword
+     * This method insert the password of the user
+     * @param userPassword user password
      * @return the same page
      */
 
@@ -73,9 +70,9 @@ public class LoginPage extends BasePageObject{
     }
 
     /**
-     *
-     * @param userName
-     * @param userPassword
+     * This method login to the page
+     * @param userName user name
+     * @param userPassword  user password
      *
      */
     private void login(String userName, String userPassword){
@@ -84,8 +81,8 @@ public class LoginPage extends BasePageObject{
     }
 
     /**
-     *
-     * @return
+     * This method submit the login but fail
+     * @return the same page
      */
 
     public LoginPage loginPageFailed(){
@@ -94,10 +91,10 @@ public class LoginPage extends BasePageObject{
     }
 
     /**
-     *
-     * @param userName
-     * @param userPassword
-     * @return
+     * This method login successfully to the web page
+     * @param userName user name
+     * @param userPassword user password
+     * @return the main page
      */
 
     public LoginPage loginPageUnsuccessfully(String userName, String userPassword){
@@ -106,20 +103,19 @@ public class LoginPage extends BasePageObject{
     }
 
     /**
-     *
-     * @param userName
-     * @param userPassword
-     * @return
+     * This method login successfully to the web page
+     * @param userName user name
+     * @param userPassword user password
+     * @return the main page
      */
-
     public MainPages LoginSuccessfully(String userName, String userPassword){
 
         return  loginPageSuccessfully(userName, userPassword);
     }
 
     /**
-     *
-     * @return
+     * This method login to the main page
+     * @return a new main page
      */
     public MainPages loginPageSuccessfully(String userName, String userPassword){
 
@@ -131,8 +127,8 @@ public class LoginPage extends BasePageObject{
     }
 
     /**
-     *
-     * @return
+     * This method verify if the submit button is displayed
+     * @return  true if is displayed and false if not
      */
 
     public Boolean submitButtonDisplayed(){
@@ -141,8 +137,8 @@ public class LoginPage extends BasePageObject{
     }
 
     /**
-     *
-     * @return
+     * Verify if the message error is displayed
+     * @return true if the message is displayed and false if not is displayed
      */
 
     public Boolean userMessageError(){

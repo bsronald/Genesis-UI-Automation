@@ -67,10 +67,10 @@ public class MainBoards extends BasePageObject {
     }
 
     /**
-     *
-     * @param nameTask
-     * @param nameBoard
-     * @return
+     * Create a new task
+     * @param nameTask task name
+     * @param nameBoard board name where will be create the task
+     * @return the same page
      */
 
     public MainBoards createTask(String nameTask, String nameBoard){
@@ -79,10 +79,10 @@ public class MainBoards extends BasePageObject {
     }
 
     /**
-     *
-     * @param nameTask
-     * @param nameBoard
-     * @return
+     * Create a new task
+     * @param nameTask task name
+     * @param nameBoard board name where will be create the task
+     * @return the same page
      */
     private MainBoards createTaskSuccessfully(String nameTask, String nameBoard){
 
@@ -93,8 +93,8 @@ public class MainBoards extends BasePageObject {
     }
 
     /**
-     *
-     * @param nameBoard
+     * Select add a new task
+     * @param nameBoard boar name where is going to be created the task
      */
     public void selectAddTask(String nameBoard) {
 
@@ -103,9 +103,9 @@ public class MainBoards extends BasePageObject {
     }
 
     /**
-     *
-     * @param nameBoard
-     * @param nameTask
+     * Click the button save task
+     * @param nameBoard name board
+     * @param nameTask name task
      */
     public void saveTask(String nameBoard, String nameTask){
 
@@ -117,9 +117,9 @@ public class MainBoards extends BasePageObject {
     }
 
     /**
-     *
-     * @param nameTask
-     * @param nameBoard
+     * Set the name of the task
+     * @param nameTask task name
+     * @param nameBoard board name
      */
     public void setName(String nameTask, String nameBoard){
 
@@ -129,8 +129,8 @@ public class MainBoards extends BasePageObject {
     }
 
     /**
-     *
-     * @param nameBoard
+     * select cancel button no save task
+     * @param nameBoard  board name
      */
     public void taskNoSaved(String nameBoard){
 
@@ -139,8 +139,8 @@ public class MainBoards extends BasePageObject {
     }
 
     /**
-     *
-     * @param taskName
+     * select a task
+     * @param taskName task name to select
      */
     public void clickOverTask(String taskName){
 
@@ -151,8 +151,8 @@ public class MainBoards extends BasePageObject {
 
 
     /**
-     *
-     * @param description
+     * Insert description to a task all the work flow
+     * @param description to insert
      */
     public void setDescriptionTask(String description) {
 
@@ -162,7 +162,7 @@ public class MainBoards extends BasePageObject {
     }
 
     /**
-     *
+     * Save the description insert in a task
      */
     private void saveTaskDescription() {
 
@@ -171,8 +171,8 @@ public class MainBoards extends BasePageObject {
     }
 
     /**
-     *
-     * @param description
+     * Set a description
+     * @param description to insert
      */
 
     public void insertTaskDescription(String description) {
@@ -182,7 +182,7 @@ public class MainBoards extends BasePageObject {
     }
 
     /**
-     *
+     * Click to insert a description
      */
     public void clickDescriptionTask() {
 
@@ -191,7 +191,7 @@ public class MainBoards extends BasePageObject {
     }
 
     /**
-     *
+     * Work flow to insert a comment in a task
      * @param comment
      */
     public void setCommentTask(String comment) {
@@ -202,7 +202,7 @@ public class MainBoards extends BasePageObject {
     }
 
     /**
-     *
+     *  This method save the comment inserted
      */
     public void saveCommentTask() {
 
@@ -211,7 +211,7 @@ public class MainBoards extends BasePageObject {
     }
 
     /**
-     *
+     * This method type the comment
      * @param comment
      */
     public void typeCommentTask(String comment) {
@@ -221,7 +221,7 @@ public class MainBoards extends BasePageObject {
     }
 
     /**
-     *
+     * This method make a click to inser a comment
      */
     public void clickCommentTask() {
 
@@ -231,7 +231,7 @@ public class MainBoards extends BasePageObject {
     }
 
     /**
-     *
+     * This method close the form of edit task
      */
     public void closeEditTask(){
 
@@ -239,23 +239,24 @@ public class MainBoards extends BasePageObject {
     }
 
     /**
-     *
-     * @param taskName
-     * @return
+     * This method verify if a task is displayed inside a board
+     * @param taskName  task name to verify
+     * @return true if the task is displayed false if not
      */
     public Boolean isTaskDisplayedInBoard(String taskName, String dashBoard) {
 
-       return UIMethods.waitElementIsPresent(10, By.xpath("//span[@class='board-title-editable' and contains(text(), '"+ dashBoard +"')]/../../following-sibling::ul/li/span[@class='board-task-title' and contains(text(), '" + taskName + "')]"));
+        return UIMethods.waitElementIsPresent(10, By.xpath(buildXpathTaskInABoard(dashBoard, taskName)));
     }
 
     /**
-     *
-     * @param taskName
-     * @param boardNameTarget
+     * This method move the task from a current board to a target board
+     * @param taskName task name
+     * @param boardNameTarget target board
+     * @param boardNameCurrent current board
      */
     public void dragAndDropTask(String taskName, String boardNameCurrent, String boardNameTarget) {
 
-        WebElement selectedTask = driver.findElement(By.xpath("//span[@class='board-title-editable' and contains(text(), '"+ boardNameCurrent +"')]/../../following-sibling::ul/li/span[@class='board-task-title' and contains(text(), '" + taskName + "')]"));
+        WebElement selectedTask = driver.findElement(By.xpath(buildXpathTaskInABoard(boardNameCurrent, taskName)));
         WebElement target = driver.findElement(By.xpath(buildXpathForBoard(boardNameTarget)+"ul"));
         Actions builder= new Actions(driver);
         Action dragAndDrop = builder.clickAndHold(selectedTask)
@@ -266,16 +267,44 @@ public class MainBoards extends BasePageObject {
 
     }
 
+    /**
+     * This method build a xpath
+     * @param boarName  board name
+     * @param taskName  task name
+     * @return a String with xpath build
+     */
+    public String buildXpathTaskInABoard(String boarName, String taskName){
+
+           return "//span[@class='board-title-editable' and contains(text(), '"+ boarName +"')]/../../following-sibling::ul/li/span[@class='board-task-title' and contains(text(), '" + taskName + "')]";
+    }
+
+    /**
+     * This method build a xpath
+     * @param taskName task name
+     * @return a String with xpath build
+     */
     public String buildXpathForTask(String taskName){
 
         return "//span[@class='board-task-title' and contains(text(), '"+ taskName +"')]";
     }
 
+    /**
+     * This method build a xpath
+     * @param boardName board name
+     * @return a String with xpath build
+     */
     public String buildXpathForBoard(String boardName){
 
         return "//div[@class='board-header']/div/span[contains(text(), '"+ boardName +"')]/../../../";
     }
 
+    /**
+     * This method create a task with description and comments
+     * @param taskName task name
+     * @param boardName board to create task
+     * @param taskDescription description
+     * @param taskComment comment
+     */
     public void createTheFollowingTask(String taskName, String boardName, String taskDescription, String taskComment){
 
         selectAddTask(boardName);

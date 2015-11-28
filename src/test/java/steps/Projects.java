@@ -80,7 +80,6 @@ public class Projects {
              nameProj = map.get("name");
              startDate = map.get("start date");
              endDate = map.get("end date");
-             System.out.print("Project name: " + nameProj + "\n" + "Start date: "  + startDate + "\n" + "End date: " + endDate );
         }
 
         topMenu = newMainPage.getTopMenu();
